@@ -20,6 +20,9 @@ const propTypes = {
     /** Callback to call when the input changes */
     onInputChange: PropTypes.func,
 
+    /** Callback called when the selector is dismissed. */
+    onBlur: PropTypes.func,
+
     /** A ref to forward to MenuItemWithTopDescription */
     forwardedRef: refPropTypes,
 
@@ -32,10 +35,11 @@ const defaultProps = {
     forwardedRef: undefined,
     errorText: '',
     onInputChange: () => {},
+    onBlur: undefined,
     label: undefined,
 };
 
-function StatePicker({value, errorText, onInputChange, forwardedRef, label}) {
+function StatePicker({value, errorText, onInputChange, onBlur, forwardedRef, label}) {
     const {translate} = useLocalize();
     const [isPickerVisible, setIsPickerVisible] = useState(false);
     const [searchValue, setSearchValue] = useState('');
@@ -46,6 +50,10 @@ function StatePicker({value, errorText, onInputChange, forwardedRef, label}) {
 
     const hidePickerModal = () => {
         setIsPickerVisible(false);
+
+        if (onBlur) {
+            onBlur();
+        }
     };
 
     const updateStateInput = (state) => {

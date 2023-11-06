@@ -29,6 +29,9 @@ const propTypes = {
     /** Callback to call when the input changes */
     onInputChange: PropTypes.func,
 
+    /** Callback called when the selector is dismissed. */
+    onBlur: PropTypes.func,
+
     /** A ref to forward to MenuItemWithTopDescription */
     forwardedRef: refPropTypes,
 };
@@ -41,9 +44,10 @@ const defaultProps = {
     forwardedRef: undefined,
     errorText: '',
     onInputChange: () => {},
+    onBlur: undefined
 };
 
-function ValuePicker({value, label, items, placeholder, errorText, onInputChange, forwardedRef}) {
+function ValuePicker({value, label, items, placeholder, errorText, onInputChange, onBlur, forwardedRef}) {
     const [isPickerVisible, setIsPickerVisible] = useState(false);
 
     const showPickerModal = () => {
@@ -52,6 +56,10 @@ function ValuePicker({value, label, items, placeholder, errorText, onInputChange
 
     const hidePickerModal = () => {
         setIsPickerVisible(false);
+        
+        if (onBlur) {
+            onBlur();
+        }
     };
 
     const updateInput = (item) => {
