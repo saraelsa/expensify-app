@@ -22,6 +22,10 @@ function DatePicker({value, defaultValue, label, placeholder, errorText, contain
         if (event.type === 'set') {
             const asMoment = moment(selectedDate, true);
             onInputChange(asMoment.format(CONST.DATE.MOMENT_FORMAT_STRING));
+
+            if (onBlur) {
+                onBlur();
+            }
         }
     };
 

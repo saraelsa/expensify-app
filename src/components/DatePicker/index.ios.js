@@ -67,6 +67,10 @@ function DatePicker({value, defaultValue, innerRef, onInputChange, preferredLoca
         setIsPickerVisible(false);
         const asMoment = moment(selectedDate, true);
         onInputChange(asMoment.format(CONST.DATE.MOMENT_FORMAT_STRING));
+
+        if (onBlur) {
+            onBlur();
+        }
     };
 
     /**
